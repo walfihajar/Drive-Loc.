@@ -16,13 +16,10 @@ class Reservation
     private status $status;
     private ?string $start_date;
     private ?string $end_date;
-    private ?string $pickup_address;
-    private ?string $dropoff_address;
-    private ?float $price;
     private $db;
 
 
-    public function __construct(int $id_reservation=0, ?int $id_user=0, ?int $id_vehicule=0, ?status $status=null, ?string $start_date='', ?string $end_date='', ?string $pickup_address='', ?string $dropoff_address='', ?float $price=0)
+    public function __construct(int $id_reservation=0, ?int $id_user=0, ?int $id_vehicule=0, ?status $status=null, ?string $start_date='', ?string $end_date='')
     {
         $this->id_reservation = $id_reservation;
         $this->id_user = $id_user;
@@ -30,9 +27,6 @@ class Reservation
         $this->status = $status ?? status::pending;
         $this->start_date = $start_date ?:date('Y-m-d H:i:s');
         $this->end_date = $end_date ?:date('Y-m-d H:i:s');
-        $this->pickup_address = $pickup_address;
-        $this->dropoff_address = $dropoff_address;
-        $this->price = $price;
 
         $conn = Database :: getInstance();
         $this->db = $conn->getConnection();
@@ -41,7 +35,7 @@ class Reservation
     
     static public function show($db)
     {
-        $query = " SELECT r.id_reservation, u.name , v.model, r.start_date, r.end_date, r.pickup_address, r.dropoff_address, v.price , r.status
+        $query = " SELECT r.id_reservation, u.name , v.model, r.start_date, r.end_date, v.price , r.status
                    FROM reservation as r
                    INNER JOIN user as u on  r.id_user = u.id_user 
                    INNER JOIN vehicule as v on r.id_vehicule = v.id_vehicule
@@ -56,8 +50,8 @@ class Reservation
 
     static public function add($newRes)
     {
-        $query = " INSERT INTO reservation (id_user, id_vehicule, status, start_date, end_date, pickup_address, dropoff_address)
-                   VALUES (:id_user, :id_vehicule, :status, :start_date, :end_date, :pickup_address,:dropoff_address)
+        $query = " INSERT INTO reservation (id_user, id_vehicule, status, start_date, end_date)
+                   VALUES (:id_user, :id_vehicule, :status, :start_date, :end_date)
                  ";
 
         $stmt = $newRes->db->prepare($query);
@@ -68,8 +62,6 @@ class Reservation
         $stmt->bindParam(':status',$statusValue);
         $stmt->bindParam(':start_date',$newRes->start_date);
         $stmt->bindParam(':end_date',$newRes->end_date);
-        $stmt->bindParam(':pickup_address',$newRes->pickup_address);
-        $stmt->bindParam(':dropoff_address',$newRes->dropoff_address);
 
         $result = $stmt->execute();
         return $result;
@@ -83,7 +75,7 @@ class Reservation
     function modify($modifiedRes)
     {
         $query = " UPDATE reservation
-                   SET id_vehicule = :id_vehicule , start_date = :start_date, end_date = :end_date , pickup_address = :pickup_address, dropoff_address = :dropoff_address
+                   SET id_vehicule = :id_vehicule , start_date = :start_date, end_date = :end_date 
                    WHERE id_reservation = :id_reservation
                    AND id_user = :id_user
                  ";
@@ -94,8 +86,6 @@ class Reservation
         $stmt->bindParam(':id_vehicule',$modifiedRes->id_vehicule, PDO::PARAM_INT);
         $stmt->bindParam(':start_date',$modifiedRes->start_date, PDO::PARAM_STR);
         $stmt->bindParam(':end_date',$modifiedRes->end_date,PDO::PARAM_STR);
-        $stmt->bindParam(':pickup_address',$modifiedRes->pickup_address,PDO::PARAM_STR);
-        $stmt->bindParam(':dropoff_address',$modifiedRes->dropoff_address,PDO::PARAM_STR);
         $stmt->bindParam(':id_user', $modifiedRes->id_user, PDO::PARAM_INT);
         
         $stmt->execute();
