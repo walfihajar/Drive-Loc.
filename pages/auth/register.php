@@ -1,31 +1,21 @@
 <?php
 session_start();
-require_once '../config.php';
-require_once '../classes/register.php';
-
+require_once '../../config.php';
+require_once '../../classes/user.php' ;
+require_once '../../classes/client.php' ;
+?>
+<?php
 if (isset($_POST['register'])) {
+    // Get form data
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $role = 'client';
 
-    $register = new Register();
-    $result = $register->register($name, $email, $password, $role);
-
-    if ($result) {
-
-        session_regenerate_id();
-        $_SESSION['name'] = $nom;
-        $_SESSION['email'] = $email;
-        $_SESSION['role'] = "client";
-
-        header("Location: ../client/home.php");
-        exit();
-    }
+    // Create a Client object and call register method
+    $client = new Client();
+    $message = $client->register($name, $email, $password); // Call register function
 }
 ?>
-
-
 
 
 <!DOCTYPE html>
