@@ -30,23 +30,23 @@ require_once '../../classes/reservation.php';
 <body>
     
    
-<div class="overflow-x-auto bg-white shadow-lg rounded-lg">
-    <table class="w-full table-auto border-collapse border border-gray-200">
-        <thead class="bg-gradient-to-r from-red-300 to-red-500 text-white">
+<div class="overflow-x-auto mt-8 mb-16 h-[65%]">
+    <table class="w-full overflow-auto text-sm text-center text-gray-500 bg-gray-100 border border-purple-500">
+        <thead class="text-s text-gray-700 bg-[#f9f3fe]">
             <tr>
-                <th class="px-6 py-3 text-left font-semibold">#</th>
-                <th class="px-6 py-3 text-left font-semibold">Name</th>
-                <th class="px-6 py-3 text-left font-semibold">Vehicule</th>
-                <th class="px-6 py-3 text-left font-semibold">Start date</th>
-                <th class="px-6 py-3 text-left font-semibold">End date</th>
-                <th class="px-6 py-3 text-left font-semibold">Pick-up address</th>
-                <th class="px-6 py-3 text-left font-semibold">Drop-off address</th>
-                <th class="px-6 py-3 text-left font-semibold">Price</th>
-                <th class="px-6 py-3 text-left font-semibold">Status</th>
-                <th class="px-6 py-3 text-left font-semibold">Actions</th>
+                <th class="px-6 py-3">#</th>
+                <th class="px-6 py-3">Name</th>
+                <th class="px-6 py-3">Vehicule</th>
+                <th class="px-6 py-3">Start date</th>
+                <th class="px-6 py-3">End date</th>
+                <th class="px-6 py-3">Pick-up address</th>
+                <th class="px-6 py-3">Drop-off address</th>
+                <th class="px-6 py-3">Price</th>
+                <th class="px-6 py-3">Status</th>
+                <th class="px-6 py-3">Actions</th>
             </tr>
         </thead>
-        <tbody class="bg-gray-50 divide-y divide-gray-200">
+        <tbody>
             <?php
             showA();
 
@@ -59,16 +59,16 @@ require_once '../../classes/reservation.php';
                 if ($result) {
                     foreach ($result as $object) {
                         $id = $object->id_reservation;
-                        echo '<tr class="hover:bg-gray-100 transition-colors duration-200">';
-                        echo "<td class='px-6 py-4 border text-gray-700'>{$object->id_reservation}</td>";
-                        echo "<td class='px-6 py-4 border text-gray-700'>{$object->name}</td>";
-                        echo "<td class='px-6 py-4 border text-gray-700'>{$object->model}</td>";
-                        echo "<td class='px-6 py-4 border text-gray-700'>{$object->start_date}</td>";
-                        echo "<td class='px-6 py-4 border text-gray-700'>{$object->end_date}</td>";
-                        echo "<td class='px-6 py-4 border text-gray-700'>{$object->pickup_address}</td>";
-                        echo "<td class='px-6 py-4 border text-gray-700'>{$object->dropoff_address}</td>";
-                        echo "<td class='px-6 py-4 border text-gray-700'>{$object->price}</td>";
-                        echo "<td class='px-6 py-4 border'>
+                        echo '<tr class="bg-white lowercase hover:bg-purple-50">';
+                        echo "<td class='px-6 py-3'>{$object->id_reservation}</td>";
+                        echo "<td class='px-6 py-3'>{$object->name}</td>";
+                        echo "<td class='px-6 py-3'>{$object->model}</td>";
+                        echo "<td class='px-6 py-3'>{$object->start_date}</td>";
+                        echo "<td class='px-6 py-3'>{$object->end_date}</td>";
+                        echo "<td class='px-6 py-3'>{$object->pickup_address}</td>";
+                        echo "<td class='px-6 py-3'>{$object->dropoff_address}</td>";
+                        echo "<td class='px-6 py-3'>{$object->price}</td>";
+                        echo "<td class='px-6 py-3'>
                                 <form action='' method='post'>
                                     <input type='hidden' name='id_reservation' value='{$object->id_reservation}'>
                                     <select name='changeStatus' onchange='this.form.submit()' class='w-full bg-gray-100 border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-red-300'>
@@ -78,7 +78,7 @@ require_once '../../classes/reservation.php';
                                     </select>
                                 </form>
                              </td>";
-                        echo "<td class='px-6 py-4 flex align-center justify-center'>
+                        echo "<td class='px-6 py-3 flex align-center justify-center'>
                                 <form action='' method='post'>
                                     <input type='hidden' name='id_reservation' value='{$object->id_reservation}'>
                                     <button type='submit' name='archive' value='$id' class='text-red-500 hover:text-red-700 transition-colors duration-200'>
@@ -94,6 +94,7 @@ require_once '../../classes/reservation.php';
         </tbody>
     </table>
 </div>
+
 </body>
 </html> 
 
