@@ -1,3 +1,6 @@
+<?php
+require_once '../../includes/navbar.php'
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,31 +21,19 @@
         }
     </script>
 </head>
+
 <body class="font-sans">
     <!-- Navbar Start -->
-    <nav class="bg-white shadow px-4 py-2">
-        <div class="container mx-auto flex items-center justify-between">
-            <a href="#" class="flex items-center space-x-3">
-                <h1 class="text-2xl text-primary font-bold flex items-center">
-                    <i class="fas fa-car-alt mr-3"></i>Cental
-                </h1>
-            </a>
-            <div class="flex items-center space-x-6">
-                <a href="#" class="text-gray-700 hover:text-primary">Home</a>
-                <a href="/pages/cars.php" class="text-gray-700 hover:text-primary">Cars</a>
-                <a href="#" class="text-gray-700 hover:text-primary">Service</a>
-                <a href="#" class="text-gray-700 hover:text-primary">Blog</a>
-                <a href="#" class="text-gray-700 hover:text-primary">Contact</a>
-                <a href="#" class="bg-primary text-white rounded-full py-2 px-4">Get Started</a>
-            </div>
-        </div>
-    </nav>
+    
     <!-- Navbar End -->
 
     <!-- Hero Section Start -->
-    <div class="relative h-screen">
-        <img src="https://via.placeholder.com/1920x1080" alt="Hero Image" class="w-full h-full object-cover">
+    <div class="relative h-[80vh]">
+        <video loop muted autoplay class="w-full h-full object-cover absolute top-0 left-0">
+            <source src="../../uploads/video1.mp4" type="video/mp4">
+        </video> 
     </div>
+
     <!-- Hero Section End -->
 
     <!-- Features Start -->
